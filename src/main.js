@@ -199,20 +199,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }, stepTime);
         });
     }
-
-    // Mobile menu toggle (if needed in future)
-    const createMobileMenu = () => {
-        if (window.innerWidth <= 768) {
-            // Mobile menu functionality can be added here
-        }
-    };
-
-    window.addEventListener('resize', createMobileMenu);
-    createMobileMenu();
 });
 
 // ===== Nav: active link + burger =====
-(() => {
+document.addEventListener('DOMContentLoaded', () => {
   const body = document.body;
   const burger = document.querySelector('.nav-burger');
   const navMenu = document.querySelector('.nav-menu');
@@ -223,11 +213,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.querySelectorAll('.nav-menu a').forEach((a) => {
     const href = a.getAttribute('href') || '';
-    // вынимаем файл из "./rating.html" или "./index.html#how"
     const hrefFile = normalize(href.replace('./', '').split('#')[0] || 'index.html');
 
-    // правила: если мы на index — активны ссылки на index#...
-    // если мы на rating/battle — активна соответствующая страница
     const isIndexPage = (currentPath === 'index.html' || currentPath === '');
     const linkIsIndex = (hrefFile === 'index.html' || hrefFile === '');
 
@@ -251,29 +238,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (burger && navMenu) {
     burger.addEventListener('click', () => {
-      if (body.classList.contains('nav-open')) closeMenu();
-      else openMenu();
+      body.classList.contains('nav-open') ? closeMenu() : openMenu();
     });
 
-    // закрываем по клику на пункт меню
     navMenu.addEventListener('click', (e) => {
       const target = e.target;
       if (target && target.closest && target.closest('a')) closeMenu();
     });
 
-    // закрываем по ESC
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeMenu();
     });
 
-    // закрываем по клику вне меню
     document.addEventListener('click', (e) => {
       if (!body.classList.contains('nav-open')) return;
       const t = e.target;
-      const clickedInsideMenu = navMenu.contains(t);
-      const clickedBurger = burger.contains(t);
-      if (!clickedInsideMenu && !clickedBurger) closeMenu();
+      if (!navMenu.contains(t) && !burger.contains(t)) closeMenu();
     });
   }
-})();
-
+});
