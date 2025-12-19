@@ -1,0 +1,15 @@
+{
+  "name": "aibattle-landing",
+  "version": "1.0.0",
+  "description": "AIBATTLE - Платформа баттлов AI-креаторов",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite preview --host 0.0.0.0 --port 3000"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
