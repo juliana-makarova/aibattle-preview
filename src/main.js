@@ -210,3 +210,70 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', createMobileMenu);
     createMobileMenu();
 });
+
+// ===== Nav: active link + burger =====
+(() => {
+  const body = document.body;
+  const burger = document.querySelector('.nav-burger');
+  const navMenu = document.querySelector('.nav-menu');
+
+  // 1) Active link (автоматически)
+  const normalize = (p) => (p || '/').replace(/\/+$/, '');
+  const currentPath = normalize(window.location.pathname.split('/').pop() || 'index.html');
+
+  document.querySelectorAll('.nav-menu a').forEach((a) => {
+    const href = a.getAttribute('href') || '';
+    // вынимаем файл из "./rating.html" или "./index.html#how"
+    const hrefFile = normalize(href.replace('./', '').split('#')[0] || 'index.html');
+
+    // правила: если мы на index — активны ссылки на index#...
+    // если мы на rating/battle — активна соответствующая страница
+    const isIndexPage = (currentPath === 'index.html' || currentPath === '');
+    const linkIsIndex = (hrefFile === 'index.html' || hrefFile === '');
+
+    const shouldBeActive =
+      (isIndexPage && linkIsIndex) ||
+      (!isIndexPage && hrefFile === currentPath);
+
+    if (shouldBeActive) a.classList.add('active');
+  });
+
+  // 2) Burger toggle
+  const closeMenu = () => {
+    body.classList.remove('nav-open');
+    if (burger) burger.setAttribute('aria-expanded', 'false');
+  };
+
+  const openMenu = () => {
+    body.classList.add('nav-open');
+    if (burger) burger.setAttribute('aria-expanded', 'true');
+  };
+
+  if (burger && navMenu) {
+    burger.addEventListener('click', () => {
+      if (body.classList.contains('nav-open')) closeMenu();
+      else openMenu();
+    });
+
+    // закрываем по клику на пункт меню
+    navMenu.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target && target.closest && target.closest('a')) closeMenu();
+    });
+
+    // закрываем по ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    // закрываем по клику вне меню
+    document.addEventListener('click', (e) => {
+      if (!body.classList.contains('nav-open')) return;
+      const t = e.target;
+      const clickedInsideMenu = navMenu.contains(t);
+      const clickedBurger = burger.contains(t);
+      if (!clickedInsideMenu && !clickedBurger) closeMenu();
+    });
+  }
+})();
+
