@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Баттл: Фестиваль Reels | AIbattle</title>
+
+  <!-- Общий CSS сайта (тот же, что подключен в index.html) -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Иконки (если на index уже подключены — можно убрать и оставить только там) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+  <!-- Page-only styles: аккуратно, в системе твоих переменных -->
+  <style>
+    /* Страница: не трогаем body/фон/шрифты — это в общем styles.css */
+
+    .page-hero {
+      padding-top: 120px; /* чтобы не залезало под фиксированную шапку */
+      padding-bottom: 40px;
+      background: radial-gradient(ellipse at top, rgba(0, 217, 255, 0.05), transparent 60%);
+    }
+
+    .page-hero .section-header {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .battle-meta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .info-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      min-width: 240px;
+    }
+
+    .info-badge i {
+      color: var(--color-cyan);
+      font-size: 18px;
+      width: 22px;
+      text-align: center;
+    }
+
+    .info-badge .label {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 2px;
+    }
+
+    .info-badge .value {
+      font-size: 14px;
+      color: var(--color-text);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .status-open {
+      color: #00ff88;
+    }
+
+    /* Tabs */
+    .tabs-wrap {
+      padding: 40px 0 16px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .tab {
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--color-border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--color-text-secondary);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-main);
+    }
+
+    .tab:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--color-text);
+    }
+
+    .tab.active {
+      background: linear-gradient(135deg, var(--color-cyan), var(--color-purple));
+      border-color: transparent;
+      color: var(--color-text);
+    }
+
+    /* Works grid: в стиле карточек сайта */
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .work-card {
+      padding: 24px;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .work-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 217, 255, 0.35);
+      box-shadow: 0 8px 32px rgba(0, 217, 255, 0.12);
+    }
+
+    .work-preview {
+      height: 220px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 30%, rgba(107, 79, 255, 0.25), transparent 55%),
+                  radial-gradient(circle at 70% 70%, rgba(0, 217, 255, 0.2), transparent 50%),
+                  rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .work-preview i {
+      font-size: 40px;
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .participant-name {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 14px;
+      color: var(--color-text);
+    }
+
+    .rating-row {
+      margin-bottom: 14px;
+    }
+
+    .rating-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-bottom: 6px;
+    }
+
+    .rating-label i {
+      color: var(--color-cyan);
+      font-size: 12px;
+    }
+
+    .stars {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .star {
+      color: #ffd700;
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    .star.empty {
+      color: rgba(255, 255, 255, 0.15);
+    }
+
+    .rating-value {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+    }
+
+    .vote-btn {
+      margin-top: auto;
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--color-text);
+      background: linear-gradient(135deg, var(--color-purple), var(--color-cyan));
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: var(--font-main);
+    }
+
+    .vote-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(107, 79, 255, 0.35);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 640px;
+      background: var(--color-bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      color: var(--color-text-secondary);
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .modal-title {
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--color-cyan), var(--color-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .modal-sub {
+      color: var(--color-text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .rating-selector {
+      padding: 16px;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      margin-bottom: 14px;
+    }
+
+    .rating-selector label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--color-text-secondary);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .rating-selector label i {
+      color: var(--color-cyan);
+    }
+
+    .star-rating {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .star-rating i {
+      font-size: 22px;
+      color: rgba(255, 255, 255, 0.18);
+      cursor: pointer;
+      transition: transform 0.12s, color 0.12s;
+    }
+
+    .star-rating i:hover {
+      transform: translateY(-1px);
+    }
+
+    .star-rating i.selected {
+      color: #ffd700;
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 900;
+      color: var(--color-text);
+      background: linear-gradient(135deg, var(--color-cyan), var(--color-purple));
+      font-family: var(--font-main);
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 768px) {
+      .page-hero {
+        padding-top: 104px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ВАЖНО: шапки/меню здесь НЕТ. Её вставляй из index.html одинаково во все страницы -->
+
+  <main>
+    <!-- Hero / Intro -->
+    <section class="section page-hero">
+      <div class="container">
+        <div class="section-header">
+          <!-- Заголовок как "Почему AIbattle" -->
+          <h1 class="section-title">Баттл фестиваль Reels</h1>
+
+          <!-- Подзаголовок как "уникальная платформа..." -->
+          <p class="section-desc">
+            Создайте брендинг для нового музыкального фестиваля Reels. Задачи: разработать логотип, key visual (ключевой визуал) и видеозаставку для социальных сетей.
+          </p>
+
+          <div class="battle-meta">
+            <div class="info-badge">
+              <i class="fas fa-circle-dot"></i>
+              <div>
+                <div class="label">Статус</div>
+                <div class="value status-open">Голосование открыто</div>
+              </div>
+            </div>
+
+            <div class="info-badge">
+              <i class="fas fa-clock"></i>
+              <div>
+                <div class="label">До окончания</div>
+                <div class="value" id="timer">—</div>
+              </div>
+            </div>
+
+            <div class="info-badge">
+              <i class="fas fa-trophy"></i>
+              <div>
+                <div class="label">Призовой фонд</div>
+                <div class="value">20&nbsp;000 ₽</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-wrap">
+          <div class="tabs">
+            <button class="tab active" data-tab="logos"><i class="fas fa-pen-nib"></i> Логотипы</button>
+            <button class="tab" data-tab="keyvisual"><i class="fas fa-palette"></i> Key Visual</button>
+            <button class="tab" data-tab="video"><i class="fas fa-video"></i> Видеозаставки</button>
+          </div>
+        </div>
+
+        <!-- Works Grid -->
+        <section class="works-grid" id="works-container">
+          <div class="work-card">
+            <div class="work-preview"><i class="fas fa-image"></i></div>
+            <div class="participant-name">Алексей Смирнов</div>
+
+            <div class="rating-row">
+              <div class="rating-label"><i class="fas fa-lightbulb"></i> Креативность</div>
+              <div class="stars">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i>
+              </div>
+              <div class="rating-value">8.5/10 (234 голоса)</div>
+            </div>
+
+            <div class="rating-row">
+              <div class="rating-label"><i class="fas fa-cog"></i> Применимость</div>
+              <div class="stars">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i>
+              </div>
+              <div class="rating-value">7.2/10 (234 голоса)</div>
+            </div>
+
+            <button class="vote-btn" onclick="openVoteModal('Алексей Смирнов')"><i class="fas fa-star"></i>&nbsp;Оценить</button>
+          </div>
+
+          <!-- Остальные карточки оставила как в твоем файле — копируй/дублируй по аналогии -->
+        </section>
+      </div>
+    </section>
+
+    <!-- Vote Modal -->
+    <div class="modal" id="voteModal">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeVoteModal()">×</button>
+        <div class="modal-title">Оцените работу</div>
+        <div class="modal-sub" id="participantName"></div>
+
+        <div class="rating-selector">
+          <label><i class="fas fa-lightbulb"></i> Креативность</label>
+          <div class="star-rating" id="creativityRating">
+            <i class="fas fa-star" data-value="1"></i><i class="fas fa-star" data-value="2"></i><i class="fas fa-star" data-value="3"></i><i class="fas fa-star" data-value="4"></i><i class="fas fa-star" data-value="5"></i>
+            <i class="fas fa-star" data-value="6"></i><i class="fas fa-star" data-value="7"></i><i class="fas fa-star" data-value="8"></i><i class="fas fa-star" data-value="9"></i><i class="fas fa-star" data-value="10"></i>
+          </div>
+        </div>
+
+        <div class="rating-selector">
+          <label><i class="fas fa-cog"></i> Применимость</label>
+          <div class="star-rating" id="usabilityRating">
+            <i class="fas fa-star" data-value="1"></i><i class="fas fa-star" data-value="2"></i><i class="fas fa-star" data-value="3"></i><i class="fas fa-star" data-value="4"></i><i class="fas fa-star" data-value="5"></i>
+            <i class="fas fa-star" data-value="6"></i><i class="fas fa-star" data-value="7"></i><i class="fas fa-star" data-value="8"></i><i class="fas fa-star" data-value="9"></i><i class="fas fa-star" data-value="10"></i>
+          </div>
+        </div>
+
+        <button class="submit-btn" onclick="submitVote()"><i class="fas fa-check"></i>&nbsp;Подтвердить оценку</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Tabs
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        // тут позже можно фильтровать/подгружать работы по разделам
+      });
+    });
+
+    // Vote modal
+    let currentParticipant = '';
+    let creativityScore = 0;
+    let usabilityScore = 0;
+
+    function openVoteModal(participantName) {
+      currentParticipant = participantName;
+      document.getElementById('participantName').textContent = participantName;
+      document.getElementById('voteModal').classList.add('active');
+      creativityScore = 0;
+      usabilityScore = 0;
+      resetStars();
+    }
+
+    function closeVoteModal() {
+      document.getElementById('voteModal').classList.remove('active');
+    }
+
+    function resetStars() {
+      document.querySelectorAll('.star-rating i').forEach(star => {
+        star.classList.remove('selected');
+      });
+    }
+
+    document.querySelectorAll('.star-rating').forEach(ratingContainer => {
+      const stars = ratingContainer.querySelectorAll('i');
+      stars.forEach(star => {
+        star.addEventListener('click', () => {
+          const value = parseInt(star.dataset.value, 10);
+          const ratingType = ratingContainer.id;
+
+          if (ratingType === 'creativityRating') creativityScore = value;
+          else usabilityScore = value;
+
+          stars.forEach((s, i) => {
+            if (i < value) s.classList.add('selected');
+            else s.classList.remove('selected');
+          });
+        });
+      });
+    });
+
+    function submitVote() {
+      if (creativityScore === 0 || usabilityScore === 0) {
+        alert('Пожалуйста, оцените оба параметра');
+        return;
+      }
+      alert(
+        `Голос принят!\nУчастник: ${currentParticipant}\nКреативность: ${creativityScore}/10\nПрименимость: ${usabilityScore}/10`
+      );
+      closeVoteModal();
+    }
+
+    // Таймер: если у тебя уже есть общий countdown в main.js — лучше переиспользовать его.
+    // Пока оставляю заглушку.
+    document.getElementById('timer').textContent = '—';
+  </script>
+</body>
+</html>
