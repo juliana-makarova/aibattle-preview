@@ -13,13 +13,13 @@
   <!-- ВАЖНО: правильный относительный путь как на GitHub Pages -->
   <link rel="stylesheet" href="./css/style.css?v=3"/>
 
-  <!-- Page-only styles (не ломают общий стиль) -->
+  <!-- Page-only styles (не ломают общий стиль index) -->
   <style>
-    /* ===== Header tweaks: единый стиль пунктов меню + лого без подчёркивания ===== */
+    /* ===== Header: лого без подчёркивания + единый стиль меню ===== */
     a.logo { text-decoration: none; color: var(--color-text); }
     a.logo:hover { text-decoration: none; }
 
-    /* Единый вид пунктов меню: серые -> белые на hover/active */
+    /* Все пункты меню одинаковые: серые -> белые на hover/active */
     .nav-menu a {
       color: var(--color-text-secondary);
       text-decoration: none;
@@ -31,10 +31,10 @@
     .nav-menu a:hover { color: var(--color-text); }
     .nav-menu a.active { color: var(--color-text); }
 
-    /* Отключаем любые псевдоподчёркивания, если они были в старых стилях */
+    /* Если где-то было цветное подчеркивание — убираем */
     .nav-menu a::after { content: none !important; }
 
-    /* Бургер-кнопка (если в общем CSS уже есть — не мешает) */
+    /* Бургер-кнопка (на десктопе скрыта) */
     .nav-burger{
       display:none;
       width:44px; height:44px;
@@ -49,15 +49,11 @@
 
     /* ===== Page hero ===== */
     .page-hero {
-      padding-top: 120px; /* чтобы не залезало под фиксированную шапку */
+      padding-top: 120px; /* чтобы не залезало под фиксированный header */
       padding-bottom: 40px;
       background: radial-gradient(ellipse at top, rgba(0, 217, 255, 0.05), transparent 60%);
     }
-
-    .page-hero .section-header {
-      max-width: 900px;
-      margin: 0 auto;
-    }
+    .page-hero .section-header { max-width: 900px; margin: 0 auto; }
 
     .battle-meta {
       display: flex;
@@ -66,7 +62,6 @@
       flex-wrap: wrap;
       margin-top: 28px;
     }
-
     .info-badge {
       display: flex;
       align-items: center;
@@ -77,14 +72,7 @@
       border-radius: 12px;
       min-width: 240px;
     }
-
-    .info-badge i {
-      color: var(--color-cyan);
-      font-size: 18px;
-      width: 22px;
-      text-align: center;
-    }
-
+    .info-badge i { color: var(--color-cyan); font-size: 18px; width: 22px; text-align: center; }
     .info-badge .label {
       font-size: 12px;
       color: var(--color-text-muted);
@@ -92,19 +80,11 @@
       letter-spacing: 0.08em;
       margin-bottom: 2px;
     }
-
-    .info-badge .value {
-      font-size: 14px;
-      color: var(--color-text);
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
+    .info-badge .value { font-size: 14px; color: var(--color-text); font-weight: 700; line-height: 1.2; }
     .status-open { color: #00ff88; }
 
-    /* Tabs */
+    /* ===== Tabs ===== */
     .tabs-wrap { padding: 40px 0 16px; }
-
     .tabs {
       display: flex;
       gap: 12px;
@@ -113,7 +93,6 @@
       max-width: 1000px;
       margin: 0 auto;
     }
-
     .tab {
       padding: 12px 18px;
       border-radius: 10px;
@@ -128,26 +107,20 @@
       gap: 8px;
       font-family: var(--font-main);
     }
-
-    .tab:hover {
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--color-text);
-    }
-
+    .tab:hover { background: rgba(255, 255, 255, 0.06); color: var(--color-text); }
     .tab.active {
       background: linear-gradient(135deg, var(--color-cyan), var(--color-purple));
       border-color: transparent;
       color: var(--color-text);
     }
 
-    /* Works grid */
+    /* ===== Works grid ===== */
     .works-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 24px;
       margin-top: 24px;
     }
-
     .work-card {
       padding: 24px;
       background: var(--color-bg-card);
@@ -157,13 +130,13 @@
       display: flex;
       flex-direction: column;
     }
-
     .work-card:hover {
       transform: translateY(-4px);
       border-color: rgba(0, 217, 255, 0.35);
       box-shadow: 0 8px 32px rgba(0, 217, 255, 0.12);
     }
 
+    /* Превьюшку позже можно заменить на <img> или ссылку на работу */
     .work-preview {
       height: 220px;
       border-radius: 12px;
@@ -179,11 +152,7 @@
       position: relative;
       overflow: hidden;
     }
-
-    .work-preview i {
-      font-size: 40px;
-      color: rgba(255, 255, 255, 0.25);
-    }
+    .work-preview i { font-size: 40px; color: rgba(255, 255, 255, 0.25); }
 
     .participant-name {
       font-size: 18px;
@@ -193,7 +162,6 @@
     }
 
     .rating-row { margin-bottom: 14px; }
-
     .rating-label {
       display: flex;
       align-items: center;
@@ -202,17 +170,11 @@
       color: var(--color-text-muted);
       margin-bottom: 6px;
     }
+    .rating-label i { color: var(--color-cyan); font-size: 12px; }
 
-    .rating-label i {
-      color: var(--color-cyan);
-      font-size: 12px;
-    }
-
-    .stars { display: flex; gap: 4px; margin-bottom: 4px; }
-
+    .stars { display: flex; gap: 4px; margin-bottom: 4px; flex-wrap: wrap; }
     .star { color: #ffd700; font-size: 14px; opacity: 0.95; }
     .star.empty { color: rgba(255, 255, 255, 0.15); }
-
     .rating-value { font-size: 13px; color: var(--color-text-secondary); }
 
     .vote-btn {
@@ -228,13 +190,9 @@
       transition: transform 0.2s, box-shadow 0.2s;
       font-family: var(--font-main);
     }
+    .vote-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(107, 79, 255, 0.35); }
 
-    .vote-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(107, 79, 255, 0.35);
-    }
-
-    /* Modal */
+    /* ===== Modal ===== */
     .modal {
       display: none;
       position: fixed;
@@ -246,9 +204,7 @@
       justify-content: center;
       padding: 16px;
     }
-
     .modal.active { display: flex; }
-
     .modal-content {
       width: 100%;
       max-width: 640px;
@@ -258,7 +214,6 @@
       padding: 24px;
       position: relative;
     }
-
     .modal-close {
       position: absolute;
       top: 10px;
@@ -269,7 +224,6 @@
       font-size: 28px;
       cursor: pointer;
     }
-
     .modal-title {
       font-size: 22px;
       font-weight: 900;
@@ -279,7 +233,6 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
     .modal-sub { color: var(--color-text-secondary); margin-bottom: 16px; }
 
     .rating-selector {
@@ -289,7 +242,6 @@
       background: rgba(255, 255, 255, 0.02);
       margin-bottom: 14px;
     }
-
     .rating-selector label {
       display: inline-flex;
       align-items: center;
@@ -298,18 +250,15 @@
       font-weight: 700;
       margin-bottom: 10px;
     }
-
     .rating-selector label i { color: var(--color-cyan); }
 
     .star-rating { display: flex; gap: 6px; flex-wrap: wrap; }
-
     .star-rating i {
       font-size: 22px;
       color: rgba(255, 255, 255, 0.18);
       cursor: pointer;
       transition: transform 0.12s, color 0.12s;
     }
-
     .star-rating i:hover { transform: translateY(-1px); }
     .star-rating i.selected { color: #ffd700; }
 
@@ -326,7 +275,7 @@
       font-family: var(--font-main);
     }
 
-    /* Mobile: показываем бургер и скрываем меню до открытия */
+    /* ===== Mobile ===== */
     @media (max-width: 768px) {
       .page-hero { padding-top: 104px; }
       .nav-burger { display: inline-flex; }
@@ -335,10 +284,11 @@
 </head>
 
 <body>
-  <!-- ===== Header (как на index, общий для всех страниц) ===== -->
+  <!-- ===== Header (единый для всех страниц) ===== -->
   <header class="header">
     <div class="container">
       <nav class="nav">
+        <!-- Лого-ссылка: подчёркивания нет -->
         <a class="logo" href="./index.html">AI BATTLE</a>
 
         <ul class="nav-menu">
@@ -355,7 +305,7 @@
           <span>Telegram</span>
         </a>
 
-        <!-- burger -->
+        <!-- Burger (JS раскрытия — в main.js) -->
         <button class="nav-burger" type="button" aria-label="Открыть меню" aria-expanded="false">
           <i class="fas fa-bars"></i>
         </button>
@@ -364,18 +314,19 @@
   </header>
 
   <main>
-    <!-- Hero / Intro -->
+    <!-- ===== Hero / Intro ===== -->
     <section class="section page-hero">
       <div class="container">
         <div class="section-header">
-          <!-- Заголовок как "Почему AIbattle" -->
+          <!-- Заголовок: как "Почему AIbattle" (section-title) -->
           <h1 class="section-title">Баттл фестиваль Reels</h1>
 
-          <!-- Подзаголовок как "уникальная платформа..." -->
+          <!-- Подзаголовок: как "уникальная платформа..." (section-desc) -->
           <p class="section-desc">
             Создайте брендинг для нового музыкального фестиваля Reels. Задачи: разработать логотип, key visual (ключевой визуал) и видеозаставку для социальных сетей.
           </p>
 
+          <!-- ===== Метабейджи (можешь менять текст) ===== -->
           <div class="battle-meta">
             <div class="info-badge">
               <i class="fas fa-circle-dot"></i>
@@ -403,17 +354,24 @@
           </div>
         </div>
 
-        <!-- Tabs -->
+        <!-- ===== Tabs (переключатели категорий работ) ===== -->
         <div class="tabs-wrap">
           <div class="tabs">
+            <!-- Комментарий: при клике просто подсвечиваем вкладку (фильтрация по категориям — позже) -->
             <button class="tab active" data-tab="logos"><i class="fas fa-pen-nib"></i> Логотипы</button>
             <button class="tab" data-tab="keyvisual"><i class="fas fa-palette"></i> Key Visual</button>
             <button class="tab" data-tab="video"><i class="fas fa-video"></i> Видеозаставки</button>
           </div>
         </div>
 
-        <!-- Works Grid -->
+        <!-- ===== Works Grid (6 карточек) ===== -->
+        <!-- Комментарий: каждая карточка = работа участника. Внутри можно заменить .work-preview на <img> -->
         <section class="works-grid" id="works-container">
+
+          <!-- ===== Card 1 ===== -->
+          <!-- Комментарий: превью пока заглушка. Позже можно так:
+               <a href="ССЫЛКА_НА_РАБОТУ" target="_blank" class="work-preview"><img ...></a>
+          -->
           <div class="work-card">
             <div class="work-preview"><i class="fas fa-image"></i></div>
             <div class="participant-name">Алексей Смирнов</div>
@@ -441,12 +399,157 @@
             </button>
           </div>
 
-          <!-- Добавляй остальные карточки по аналогии -->
+          <!-- ===== Card 2 ===== -->
+          <div class="work-card">
+            <div class="work-preview"><i class="fas fa-image"></i></div>
+            <div class="participant-name">Мария Иванова</div>
+
+            <div class="rating-row">
+              <div class="rating-label"><i class="fas fa-lightbulb"></i> Креативность</div>
+              <div class="stars">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i>
+              </div>
+              <div class="rating-value">7.6/10 (198 голосов)</div>
+            </div>
+
+            <div class="rating-row">
+              <div class="rating-label"><i class="fas fa-cog"></i> Применимость</div>
+              <div class="stars">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i>
+              </div>
+              <div class="rating-value">8.1/10 (198 голосов)</div>
+            </div>
+
+            <button class="vote-btn" type="button" onclick="openVoteModal('Мария Иванова')">
+              <i class="fas fa-star"></i>&nbsp;Оценить
+            </button>
+          </div>
+
+          <!-- ===== Card 3 ===== -->
+          <div class="work-card">
+            <div class="work-preview"><i class="fas fa-image"></i></div>
+            <div class="participant-name">Дмитрий Козлов</div>
+
+            <div class="rating-row">
+              <div class="rating-label"><i class="fas fa-lightbulb"></i> Креативность</div>
+              <div class="stars">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star empty"></i>
+              </div>
+              <div class="rating-value">9.1/10 (312 голосов)</div>
+            </div>
+
+            <div class="rating-row">
+              <div class="rating-label"><i class="fas fa-cog"></i> Применимость</div>
+              <div class="stars">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i>
+              </div>
+              <div class="rating-value">7.4/10 (312 голосов)</div>
+            </div>
+
+            <button class="vote-btn" type="button" onclick="openVoteModal('Дмитрий Козлов')">
+              <i class="fas fa-star"></i>&nbsp;Оценить
+            </button>
+          </div>
+
+          <!-- ===== Card 4 ===== -->
+          <div class="work-card">
+            <div class="work-preview"><i class="fas fa-image"></i></div>
+            <div class="participant-name">Анна Петрова</div>
+
+            <div class="rating-row">
+              <div class="rating-label"><i class="fas fa-lightbulb"></i> Креативность</div>
+              <div class="stars">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i>
+              </div>
+              <div class="rating-value">6.4/10 (121 голос)</div>
+            </div>
+
+            <div class="rating-row">
+              <div class="rating-label"><i class="fas fa-cog"></i> Применимость</div>
+              <div class="stars">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star empty"></i>
+                <i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i>
+              </div>
+              <div class="rating-value">4.0/10 (121 голос)</div>
+            </div>
+
+            <button class="vote-btn" type="button" onclick="openVoteModal('Анна Петрова')">
+              <i class="fas fa-star"></i>&nbsp;Оценить
+            </button>
+          </div>
+
+          <!-- ===== Card 5 ===== -->
+          <div class="work-card">
+            <div class="work-preview"><i class="fas fa-image"></i></div>
+            <div class="participant-name">Сергей Волков</div>
+
+            <div class="rating-row">
+              <div class="rating-label"><i class="fas fa-lightbulb"></i> Креативность</div>
+              <div class="stars">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i>
+              </div>
+              <div class="rating-value">7.3/10 (167 голосов)</div>
+            </div>
+
+            <div class="rating-row">
+              <div class="rating-label"><i class="fas fa-cog"></i> Применимость</div>
+              <div class="stars">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i>
+              </div>
+              <div class="rating-value">8.0/10 (167 голосов)</div>
+            </div>
+
+            <button class="vote-btn" type="button" onclick="openVoteModal('Сергей Волков')">
+              <i class="fas fa-star"></i>&nbsp;Оценить
+            </button>
+          </div>
+
+          <!-- ===== Card 6 ===== -->
+          <div class="work-card">
+            <div class="work-preview"><i class="fas fa-image"></i></div>
+            <div class="participant-name">Екатерина Новикова</div>
+
+            <div class="rating-row">
+              <div class="rating-label"><i class="fas fa-lightbulb"></i> Креативность</div>
+              <div class="stars">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i>
+              </div>
+              <div class="rating-value">8.2/10 (205 голосов)</div>
+            </div>
+
+            <div class="rating-row">
+              <div class="rating-label"><i class="fas fa-cog"></i> Применимость</div>
+              <div class="stars">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i><i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i><i class="fas fa-star star empty"></i>
+              </div>
+              <div class="rating-value">6.0/10 (205 голосов)</div>
+            </div>
+
+            <button class="vote-btn" type="button" onclick="openVoteModal('Екатерина Новикова')">
+              <i class="fas fa-star"></i>&nbsp;Оценить
+            </button>
+          </div>
+
+          <!-- Комментарий:
+            Если нужно добавить 7+ карточку — копируешь любой <div class="work-card">...</div> и меняешь:
+            1) имя участника,
+            2) цифры рейтинга,
+            3) (позже) превью/ссылку на работу
+          -->
         </section>
       </div>
     </section>
 
-    <!-- Vote Modal -->
+    <!-- ===== Vote Modal ===== -->
     <div class="modal" id="voteModal" aria-hidden="true">
       <div class="modal-content" role="dialog" aria-modal="true" aria-label="Голосование">
         <button class="modal-close" type="button" onclick="closeVoteModal()">×</button>
@@ -482,17 +585,17 @@
   <!-- Локальный JS страницы -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Tabs
+      // Tabs: подсветка активной вкладки
       const tabs = document.querySelectorAll('.tab');
       tabs.forEach(tab => {
         tab.addEventListener('click', () => {
           tabs.forEach(t => t.classList.remove('active'));
           tab.classList.add('active');
-          // позже можно фильтровать/подгружать работы по разделам
+          // Комментарий: фильтрацию работ по вкладкам можно добавить позже
         });
       });
 
-      // Таймер: пока заглушка (можем подключить реальный дедлайн, если скажешь дату)
+      // Таймер (пока заглушка)
       const timerEl = document.getElementById('timer');
       if (timerEl) timerEl.textContent = '—';
     });
