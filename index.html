@@ -1,565 +1,128 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIBATTLE - Платформа баттлов AI-креаторов</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AIBATTLE - Платформа баттлов AI-креаторов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- ВАЖНО: относительный путь -->
+  <link rel="stylesheet" href="./css/style.css?v=2" />
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <div class="logo">AI BATTLE</div>
-                <ul class="nav-menu">
-                    <li><a href="#how">Как работает</a></li>
-                    <li><a href="#schedule">Расписание</a></li>
-                    <li><a href="#prizes">Призы</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                </ul>
-                <a href="https://t.me/aibattle_channel" target="_blank" class="btn-telegram">
-                    <i class="fab fa-telegram"></i>
-                    <span>Telegram</span>
-                </a>
-            </nav>
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <div class="logo">AI BATTLE</div>
+        <ul class="nav-menu">
+          <li><a href="#how">Как работает</a></li>
+          <li><a href="#schedule">Расписание</a></li>
+          <li><a href="#prizes">Призы</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <a href="https://t.me/aibattle_channel" target="_blank" class="btn-telegram">
+          <i class="fab fa-telegram"></i><span>Telegram</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-container">
+        <!-- СЧЁТЧИК -->
+        <div class="countdown-section">
+          <a href="#schedule" class="countdown-label-link"><div class="countdown-label">Первый батл</div></a>
+          <div class="countdown-timer">
+            <div class="countdown-item"><div class="countdown-flip"><span class="countdown-value" id="days">0</span></div><div class="countdown-unit">дней</div></div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item"><div class="countdown-flip"><span class="countdown-value" id="hours">0</span></div><div class="countdown-unit">часов</div></div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item"><div class="countdown-flip"><span class="countdown-value" id="minutes">0</span></div><div class="countdown-unit">минут</div></div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item"><div class="countdown-flip"><span class="countdown-value" id="seconds">0</span></div><div class="countdown-unit">секунд</div></div>
+          </div>
         </div>
-    </header>
 
-    <main>
-        <section class="hero">
-            <div class="hero-container">
-                <div class="countdown-section">
-                    <a href="#schedule" class="countdown-label-link"><div class="countdown-label">Первый батл</div></a>
-                    <div class="countdown-timer">
-                        <div class="countdown-item">
-                            <div class="countdown-flip">
-                                <span class="countdown-value" id="days">0</span>
-                            </div>
-                            <div class="countdown-unit">дней</div>
-                        </div>
-                        <div class="countdown-separator">:</div>
-                        <div class="countdown-item">
-                            <div class="countdown-flip">
-                                <span class="countdown-value" id="hours">0</span>
-                            </div>
-                            <div class="countdown-unit">часов</div>
-                        </div>
-                        <div class="countdown-separator">:</div>
-                        <div class="countdown-item">
-                            <div class="countdown-flip">
-                                <span class="countdown-value" id="minutes">0</span>
-                            </div>
-                            <div class="countdown-unit">минут</div>
-                        </div>
-                        <div class="countdown-separator">:</div>
-                        <div class="countdown-item">
-                            <div class="countdown-flip">
-                                <span class="countdown-value" id="seconds">0</span>
-                            </div>
-                            <div class="countdown-unit">секунд</div>
-                        </div>
-                    </div>
-                </div>
-
-                <h1 class="hero-title">
-                    AI-ЭКСПЕРТЫ
-                </h1>
-
-                <div class="vs-symbol">
-                    <svg class="vs-x" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1" />
-                                <stop offset="50%" style="stop-color:#6B4FFF;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#FF2E97;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        <path d="M 30 30 L 170 170 M 170 30 L 30 170" stroke="url(#grad1)" stroke-width="20" stroke-linecap="round"/>
-                    </svg>
-                    <div class="vs-particles"></div>
-                </div>
-
-                <h2 class="hero-subtitle">
-                    БИЗНЕС-ЗАДАЧИ
-                </h2>
-
-                <p class="hero-description">
-                    Платформа публичных соревнований, где AI-креаторы решают реальные<br class="desktop-br">
-                    бизнес-задачи с помощью нейросетей в режиме реального времени
-                </p>
-
-                <div class="hero-actions">
-                    <a href="https://t.me/aibattle_bot" target="_blank" class="btn btn-primary">
-                        Зарегистрироваться
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <div class="spots-left">
-                        <i class="fas fa-fire"></i>
-                        Осталось <span class="spots-count">12</span> мест из 20
-                    </div>
-                </div>
-
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-value">500+</div>
-                        <div class="stat-label">Зрителей</div>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <div class="stat-value">20+</div>
-                        <div class="stat-label">Экспертов</div>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <div class="stat-value">15+</div>
-                        <div class="stat-label">Компаний</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section section-why">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Почему AIBATTLE?</h2>
-                    <p class="section-desc">Уникальная платформа с реальной ценностью</p>
-                </div>
-
-                <div class="why-grid">
-                    <div class="why-card">
-                        <div class="why-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <h3>Реальные задачи</h3>
-                        <p>Не учебные кейсы, а настоящие бизнес-вызовы от действующих компаний</p>
-                    </div>
-                    <div class="why-card">
-                        <div class="why-icon">
-                            <i class="fas fa-eye"></i>
-                        </div>
-                        <h3>Прозрачная оценка</h3>
-                        <p>Публичное жюри и открытое голосование — никаких скрытых критериев</p>
-                    </div>
-                    <div class="why-card">
-                        <div class="why-icon">
-                            <i class="fas fa-hands-helping"></i>
-                        </div>
-                        <h3>Win-win для всех</h3>
-                        <p>Эксперты получают деньги и заказы, бизнес — решения, зрители — знания</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="how">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Как это работает</h2>
-                    <p class="section-desc">Три способа участия в AIBATTLE</p>
-                </div>
-
-                <div class="tabs">
-                    <div class="tab-nav">
-                        <button class="tab-link active" data-tab="experts">
-                            <i class="fas fa-user-astronaut"></i>
-                            Для экспертов
-                        </button>
-                        <button class="tab-link" data-tab="business">
-                            <i class="fas fa-building"></i>
-                            Для бизнеса
-                        </button>
-                        <button class="tab-link" data-tab="viewers">
-                            <i class="fas fa-eye"></i>
-                            Для зрителей
-                        </button>
-                    </div>
-
-                    <div class="tab-content active" id="experts">
-                        <div class="steps-grid">
-                            <div class="step-item">
-                                <div class="step-num">01</div>
-                                <div class="step-icon"><i class="fas fa-user-plus"></i></div>
-                                <h3>Регистрация</h3>
-                                <p>Подайте заявку через Telegram-бот и пройдите отбор</p>
-                            </div>
-                            <div class="step-item">
-                                <div class="step-num">02</div>
-                                <div class="step-icon"><i class="fas fa-trophy"></i></div>
-                                <h3>Участие</h3>
-                                <p>Решайте задачи в прямом эфире за ограниченное время</p>
-                            </div>
-                            <div class="step-item">
-                                <div class="step-num">03</div>
-                                <div class="step-icon"><i class="fas fa-star"></i></div>
-                                <h3>Рост</h3>
-                                <p>Получайте призы, растите в рейтинге, привлекайте заказы</p>
-                            </div>
-                        </div>
-                        <div class="benefits-box">
-                            <h4>Преимущества</h4>
-                            <ul>
-                                <li><i class="fas fa-check"></i> Публичная демонстрация навыков</li>
-                                <li><i class="fas fa-check"></i> Портфолио реальных кейсов</li>
-                                <li><i class="fas fa-check"></i> Денежные призы до 50 000 ₽</li>
-                                <li><i class="fas fa-check"></i> Прямые заказы от компаний</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="tab-content" id="business">
-                        <div class="steps-grid">
-                            <div class="step-item">
-                                <div class="step-num">01</div>
-                                <div class="step-icon"><i class="fas fa-lightbulb"></i></div>
-                                <h3>Подайте задачу</h3>
-                                <p>Опишите вашу бизнес-задачу через форму или Telegram</p>
-                            </div>
-                            <div class="step-item">
-                                <div class="step-num">02</div>
-                                <div class="step-icon"><i class="fas fa-eye"></i></div>
-                                <h3>Смотрите решение</h3>
-                                <p>Наблюдайте, как эксперты решают вашу задачу в эфире</p>
-                            </div>
-                            <div class="step-item">
-                                <div class="step-num">03</div>
-                                <div class="step-icon"><i class="fas fa-handshake"></i></div>
-                                <h3>Получите результат</h3>
-                                <p>Бесплатно получите решения и выберите эксперта</p>
-                            </div>
-                        </div>
-                        <div class="benefits-box">
-                            <h4>Преимущества</h4>
-                            <ul>
-                                <li><i class="fas fa-check"></i> Бесплатные решения задач</li>
-                                <li><i class="fas fa-check"></i> PR и упоминание бренда</li>
-                                <li><i class="fas fa-check"></i> Доступ к пулу экспертов</li>
-                                <li><i class="fas fa-check"></i> Оценка навыков перед наймом</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="tab-content" id="viewers">
-                        <div class="steps-grid">
-                            <div class="step-item">
-                                <div class="step-num">01</div>
-                                <div class="step-icon"><i class="fas fa-bell"></i></div>
-                                <h3>Подпишитесь</h3>
-                                <p>Следите за анонсами в Telegram-канале</p>
-                            </div>
-                            <div class="step-item">
-                                <div class="step-num">02</div>
-                                <div class="step-icon"><i class="fas fa-tv"></i></div>
-                                <h3>Смотрите</h3>
-                                <p>Наблюдайте за профессионалами в реальном времени</p>
-                            </div>
-                            <div class="step-item">
-                                <div class="step-num">03</div>
-                                <div class="step-icon"><i class="fas fa-graduation-cap"></i></div>
-                                <h3>Учитесь</h3>
-                                <p>Изучайте приемы и подходы лучших AI-экспертов</p>
-                            </div>
-                        </div>
-                        <div class="benefits-box">
-                            <h4>Преимущества</h4>
-                            <ul>
-                                <li><i class="fas fa-check"></i> Бесплатное образование</li>
-                                <li><i class="fas fa-check"></i> Реальные кейсы и решения</li>
-                                <li><i class="fas fa-check"></i> Увлекательный формат</li>
-                                <li><i class="fas fa-check"></i> Общение с экспертами</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section section-dark" id="schedule">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Расписание</h2>
-                    <p class="section-desc">Ближайшие баттлы</p>
-                </div>
-
-                <div class="battles-grid">
-                    <div class="battle-card battle-card-active">
-                        <div class="battle-header">
-                            <div class="battle-tag">Батл #1</div>
-                            <div class="battle-badge">
-                                <i class="fas fa-bolt"></i>
-                                Осталось 12 мест
-                            </div>
-                        </div>
-
-                        <h3 class="battle-title">Первый публичный батл</h3>
-
-                        <div class="battle-info">
-                            <div class="info-row">
-                                <i class="fas fa-calendar"></i>
-                                <span>11 декабря 2025</span>
-                            </div>
-                            <div class="info-row">
-                                <i class="fas fa-clock"></i>
-                                <span>11:00 МСК</span>
-                            </div>
-                            <div class="info-row">
-                                <i class="fas fa-users"></i>
-                                <span>4 участника</span>
-                            </div>
-                            <div class="info-row">
-                                <i class="fas fa-hourglass-half"></i>
-                                <span>2 часа</span>
-                            </div>
-                        </div>
-
-                        <div class="battle-footer">
-                            <div class="battle-prize">
-                                <i class="fas fa-trophy"></i>
-                                <span>50 000 ₽</span>
-                            </div>
-                            <a href="https://t.me/aibattle_bot" target="_blank" class="btn btn-primary btn-full">Зарегистрироваться</a>
-                        </div>
-                    </div>
-
-                    <div class="battle-card">
-                        <div class="battle-header">
-                            <div class="battle-tag">Батл #2</div>
-                        </div>
-
-                        <h3 class="battle-title">Второй публичный батл</h3>
-
-                        <div class="battle-info">
-                            <div class="info-row">
-                                <i class="fas fa-calendar"></i>
-                                <span>18 декабря 2025</span>
-                            </div>
-                            <div class="info-row">
-                                <i class="fas fa-clock"></i>
-                                <span>11:00 МСК</span>
-                            </div>
-                            <div class="info-row">
-                                <i class="fas fa-users"></i>
-                                <span>4 участника</span>
-                            </div>
-                            <div class="info-row">
-                                <i class="fas fa-hourglass-half"></i>
-                                <span>2 часа</span>
-                            </div>
-                        </div>
-
-                        <div class="battle-footer">
-                            <div class="battle-prize">
-                                <i class="fas fa-trophy"></i>
-                                <span>50 000 ₽</span>
-                            </div>
-                            <a href="https://t.me/aibattle_bot" target="_blank" class="btn btn-outline btn-full">Напомнить</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section section-earnings">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Зарабатывайте на своих навыках</h2>
-                    <p class="section-desc">Монетизация для экспертов</p>
-                </div>
-
-                <div class="earnings-grid">
-                    <div class="earnings-card">
-                        <div class="earnings-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <h3>Рейтинг и призы</h3>
-                        <p>Побеждайте в баттлах и получайте денежные призы. Каждая победа увеличивает ваш рейтинг и видимость</p>
-                        <div class="earnings-highlight">До 25 000 ₽ за победу</div>
-                    </div>
-                    <div class="earnings-card">
-                        <div class="earnings-icon">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <h3>Портфолио кейсов</h3>
-                        <p>Каждое ваше решение — это публичный кейс в портфолио. Демонстрируйте экспертность на реальных задачах</p>
-                        <div class="earnings-highlight">Публичная демонстрация навыков</div>
-                    </div>
-                    <div class="earnings-card">
-                        <div class="earnings-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <h3>Прямые заказы</h3>
-                        <p>Компании видят вашу работу в эфире и могут предложить проекты напрямую. Никаких посредников</p>
-                        <div class="earnings-highlight">Прямой контакт с заказчиками</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="prizes">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Призы</h2>
-                    <p class="section-desc">Призовой фонд первого батла</p>
-                </div>
-
-                <div class="prize-amount">50 000 ₽</div>
-
-                <div class="prize-places">
-                    <div class="place-card gold">
-                        <div class="place-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="place-title">1 место</div>
-                        <div class="place-prize">25 000 ₽</div>
-                    </div>
-                    <div class="place-card silver">
-                        <div class="place-icon">
-                            <i class="fas fa-medal"></i>
-                        </div>
-                        <div class="place-title">2 место</div>
-                        <div class="place-prize">15 000 ₽</div>
-                    </div>
-                    <div class="place-card bronze">
-                        <div class="place-icon">
-                            <i class="fas fa-award"></i>
-                        </div>
-                        <div class="place-title">3 место</div>
-                        <div class="place-prize">10 000 ₽</div>
-                    </div>
-                </div>
-
-                <div class="partners-section">
-                    <h3>Генеральный партнер</h3>
-                    <div class="partner-featured">
-                        <a href="https://phygital.plus/ru" target="_blank" class="partner-card-main">
-                            <div class="partner-logo-wrap">
-                                <img src="/public/phygital.jpeg" alt="Phygital+" class="partner-logo-img">
-                            </div>
-                            <div class="partner-info">
-                                <h4>Phygital+</h4>
-                                <p>Первая школа-сообщество phygital-маркетологов в СНГ. Помогаем компаниям создавать запоминающиеся пользовательские опыты на стыке digital и физического мира.</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="become-partner-box">
-                        <p>Хотите стать партнером?</p>
-                        <a href="https://t.me/aibattle_bot" target="_blank" class="btn btn-outline">Связаться</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section section-dark" id="faq">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">FAQ</h2>
-                    <p class="section-desc">Ответы на частые вопросы</p>
-                </div>
-
-                <div class="faq-container">
-                    <div class="faq-item">
-                        <div class="faq-q">
-                            <span>Как стать участником батла?</span>
-                            <i class="fas fa-plus"></i>
-                        </div>
-                        <div class="faq-a">
-                            <p>Подайте заявку через наш Telegram-бот. Опишите свой опыт работы с нейросетями, прикрепите примеры работ. Мы отберем лучших кандидатов для участия в батлах.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-q">
-                            <span>Какой формат проведения батлов?</span>
-                            <i class="fas fa-plus"></i>
-                        </div>
-                        <div class="faq-a">
-                            <p>Батлы проходят в прямом эфире. Участники получают одинаковую бизнес-задачу и ограниченное время на её решение. Весь процесс транслируется онлайн.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-q">
-                            <span>Какие призы получают победители?</span>
-                            <i class="fas fa-plus"></i>
-                        </div>
-                        <div class="faq-a">
-                            <p>Призовой фонд первого батла — 50 000 ₽. Распределение: 1 место — 25 000 ₽, 2 место — 15 000 ₽, 3 место — 10 000 ₽.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-q">
-                            <span>Как компании могут подать свою задачу?</span>
-                            <i class="fas fa-plus"></i>
-                        </div>
-                        <div class="faq-a">
-                            <p>Используйте форму на сайте или напишите в Telegram-бот. Опишите задачу, её контекст и желаемый результат.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-q">
-                            <span>Сколько стоит участие?</span>
-                            <i class="fas fa-plus"></i>
-                        </div>
-                        <div class="faq-a">
-                            <p>Для экспертов и компаний участие бесплатное. Для зрителей трансляции полностью бесплатны.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="cta-section">
-            <div class="container">
-                <h2>Готовы присоединиться?</h2>
-                <p>Станьте частью первого батла AI-экспертов</p>
-                <div class="cta-buttons">
-                    <a href="https://t.me/aibattle_bot" target="_blank" class="btn btn-primary btn-large">
-                        <i class="fab fa-telegram"></i>
-                        Подать заявку
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">AI BATTLE</div>
-                    <p>Платформа публичных соревнований AI-экспертов</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-col">
-                        <h4>Платформа</h4>
-                        <a href="#how">Как работает</a>
-                        <a href="#schedule">Расписание</a>
-                        <a href="#prizes">Призы</a>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Участие</h4>
-                        <a href="#">Для экспертов</a>
-                        <a href="#">Для бизнеса</a>
-                        <a href="#">Для зрителей</a>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Контакты</h4>
-                        <a href="https://t.me/aibattle_channel" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
-                        <a href="#faq">FAQ</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 AIBATTLE</p>
-            </div>
+        <!-- КРЕСТ -->
+        <div class="vs-symbol">
+          <svg class="vs-x" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#6B4FFF;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#FF2E97;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <path d="M 30 30 L 170 170 M 170 30 L 30 170" stroke="url(#grad1)" stroke-width="20" stroke-linecap="round"/>
+          </svg>
+          <div class="vs-particles"></div>
         </div>
-    </footer>
 
-    <script type="module" src="/src/main.js"></script>
+        <!-- НОВЫЕ ТЕКСТЫ -->
+        <h1 class="hero-title font-logo">AI BATTLE</h1>
+        <h2 class="hero-subtitle">Где эксперты соревнуются в решении<br/>реальных бизнес-задач</h2>
+        <p class="hero-description">
+          Эксперты + Нейросети + Реальные задачи бизнеса =<br class="desktop-br" />
+          Образовательный контент + Рейтинги + Призы
+        </p>
+
+        <!-- Кнопки и статистика — без изменений -->
+        <div class="hero-actions">
+          <a href="https://t.me/aibattle_bot" target="_blank" class="btn btn-primary">
+            Зарегистрироваться <i class="fas fa-arrow-right"></i>
+          </a>
+          <div class="spots-left"><i class="fas fa-fire"></i> Осталось <span class="spots-count">12</span> мест из 20</div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item"><div class="stat-value">500+</div><div class="stat-label">Зрителей</div></div>
+          <div class="stat-divider"></div>
+          <div class="stat-item"><div class="stat-value">20+</div><div class="stat-label">Экспертов</div></div>
+          <div class="stat-divider"></div>
+          <div class="stat-item"><div class="stat-value">15+</div><div class="stat-label">Компаний</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Остальные секции без изменений (оставь как у тебя): почему/как/расписание/призы/FAQ/CTA -->
+    <!-- ... -->
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="footer-logo">AI BATTLE</div>
+          <p>Платформа публичных соревнований AI-экспертов</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Платформа</h4>
+            <a href="#how">Как работает</a>
+            <a href="#schedule">Расписание</a>
+            <a href="#prizes">Призы</a>
+          </div>
+          <div class="footer-col">
+            <h4>Участие</h4>
+            <a href="#">Для экспертов</a>
+            <a href="#">Для бизнеса</a>
+            <a href="#">Для зрителей</a>
+          </div>
+          <div class="footer-col">
+            <h4>Контакты</h4>
+            <a href="https://t.me/aibattle_channel" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+            <a href="#faq">FAQ</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2025 AIBATTLE</p></div>
+    </div>
+  </footer>
+
+  <!-- ВАЖНО: относительный путь -->
+  <script type="module" src="./src/main.js?v=2"></script>
 </body>
 </html>
