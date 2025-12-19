@@ -57,7 +57,14 @@ body {
 .logo {
     font-size: 18px; font-weight: 800; letter-spacing: 0.05em; color: var(--color-text);
 }
-
+/* Logo link: no underline */
+a.logo {
+  text-decoration: none;
+  color: var(--color-text);
+}
+a.logo:hover {
+  text-decoration: none;
+}
 .nav-menu { display: flex; list-style: none; gap: 40px; }
 
 .nav-menu a {
@@ -80,21 +87,30 @@ body {
 .nav-menu a {
   position: relative;
 }
+/* Unified nav links look */
+.nav-menu a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s, background 0.2s;
+}
 
+/* hover = white */
+.nav-menu a:hover {
+  color: var(--color-text);
+}
+
+/* active = white (no underline) */
 .nav-menu a.active {
   color: var(--color-text);
 }
 
-.nav-menu a.active::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -10px;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--color-cyan), var(--color-purple), var(--color-pink));
+/* remove any underline/after effects if they exist */
+.nav-menu a::after {
+  content: none !important;
 }
+
 
 /* ===== Burger button ===== */
 .nav-burger {
