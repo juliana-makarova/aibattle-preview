@@ -1,259 +1,224 @@
-// Tabs functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Tab switching
-    const tabBtns = document.querySelectorAll('.tab-link');
-    const tabContents = document.querySelectorAll('.tab-content');
+// ===============================
+// AIBATTLE — MAIN JS (FULL)
+// Menu: 3 page links only (no anchors)
+// ===============================
 
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetTab = btn.getAttribute('data-tab');
-
-            // Remove active class from all tabs
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-
-            // Add active class to clicked tab
-            btn.classList.add('active');
-            document.getElementById(targetTab).classList.add('active');
-        });
-    });
-
-    // FAQ accordion
-    const faqItems = document.querySelectorAll('.faq-item');
-
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-q');
-
-        question.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-
-            // Close all FAQ items
-            faqItems.forEach(i => i.classList.remove('active'));
-
-            // Open clicked item if it wasn't active
-            if (!isActive) {
-                item.classList.add('active');
-            }
-        });
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            
-            // Skip if it's just "#"
-            if (href === '#') {
-                return;
-            }
-            
-            e.preventDefault();
-            const target = document.querySelector(href);
-            
-            if (target) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = target.offsetTop - headerHeight - 20;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Header background on scroll
-    const header = document.querySelector('.header');
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
-            header.style.background = 'rgba(0, 0, 0, 0.95)';
-        } else {
-            header.style.background = 'rgba(0, 0, 0, 0.8)';
-        }
-    });
-
-    // Animate elements on scroll
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // Observe step cards and battle cards
-    document.querySelectorAll('.step-item, .battle-card, .place-card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.6s ease';
-        observer.observe(el);
-    });
-
-    // Add telegram bot link functionality (placeholder)
-    document.querySelectorAll('.btn[href="#"]').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            // Here you would redirect to your actual Telegram bot
-            // For now, show an alert
-            alert('Telegram-бот скоро будет доступен! Следите за обновлениями.');
-        });
-    });
-
-    // Countdown timer for the first battle
-    const battleDate = new Date('2025-12-23T11:00:00');
-
-    let previousValues = {
-        days: null,
-        hours: null,
-        minutes: null,
-        seconds: null
-    };
-
-    function updateCountdown() {
-        const now = new Date();
-        const diff = battleDate - now;
-
-        if (diff > 0) {
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            // Update each value with flip animation
-            updateValue('days', days);
-            updateValue('hours', hours);
-            updateValue('minutes', minutes);
-            updateValue('seconds', seconds);
-        } else {
-            // Battle has started
-            document.querySelectorAll('.countdown-value').forEach(el => {
-                el.textContent = '00';
-            });
-        }
-    }
-
-    function updateValue(id, value) {
-        const element = document.getElementById(id);
-        if (element) {
-            const paddedValue = String(value).padStart(2, '0');
-
-            if (previousValues[id] !== paddedValue) {
-                // Add flip animation
-                element.classList.add('flip-animation');
-
-                setTimeout(() => {
-                    element.textContent = paddedValue;
-                    element.classList.remove('flip-animation');
-                }, 300);
-
-                previousValues[id] = paddedValue;
-            }
-        }
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000); // Update every second
-
-    // Add animation to stats numbers
-    const stats = document.querySelectorAll('.stat-value');
-    let statsAnimated = false;
-
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !statsAnimated) {
-                statsAnimated = true;
-                animateStats();
-            }
-        });
-    }, { threshold: 0.5 });
-
-    if (stats.length > 0) {
-        statsObserver.observe(document.querySelector('.hero-stats'));
-    }
-
-    function animateStats() {
-        stats.forEach(stat => {
-            const target = stat.textContent;
-            const number = parseInt(target.replace(/[^0-9]/g, ''));
-            const suffix = target.replace(/[0-9]/g, '');
-            let current = 0;
-            const increment = number / 50;
-            const duration = 1500;
-            const stepTime = duration / 50;
-
-            const counter = setInterval(() => {
-                current += increment;
-                if (current >= number) {
-                    stat.textContent = target;
-                    clearInterval(counter);
-                } else {
-                    stat.textContent = Math.floor(current) + suffix;
-                }
-            }, stepTime);
-        });
-    }
-});
-
-// ===== Nav: active link + burger =====
 document.addEventListener('DOMContentLoaded', () => {
-  const body = document.body;
-  const burger = document.querySelector('.nav-burger');
-  const navMenu = document.querySelector('.nav-menu');
 
-  // 1) Active link (автоматически)
-  const normalize = (p) => (p || '/').replace(/\/+$/, '');
-  const currentPath = normalize(window.location.pathname.split('/').pop() || 'index.html');
+  /* -----------------------------
+     Tabs (only if they exist on page)
+  ----------------------------- */
+  const tabBtns = document.querySelectorAll('.tab-link');
+  const tabContents = document.querySelectorAll('.tab-content');
 
-  document.querySelectorAll('.nav-menu a').forEach((a) => {
-    const href = a.getAttribute('href') || '';
-    const hrefFile = normalize(href.replace('./', '').split('#')[0] || 'index.html');
+  if (tabBtns.length && tabContents.length) {
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.dataset.tab;
 
-    const isIndexPage = (currentPath === 'index.html' || currentPath === '');
-    const linkIsIndex = (hrefFile === 'index.html' || hrefFile === '');
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
 
-    const shouldBeActive =
-      (isIndexPage && linkIsIndex) ||
-      (!isIndexPage && hrefFile === currentPath);
+        btn.classList.add('active');
+        const target = document.getElementById(targetTab);
+        if (target) target.classList.add('active');
+      });
+    });
+  }
 
-    if (shouldBeActive) a.classList.add('active');
+  /* -----------------------------
+     FAQ accordion (only if exists)
+  ----------------------------- */
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    if (!q) return;
+
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+      if (!isOpen) item.classList.add('active');
+    });
   });
 
-  // 2) Burger toggle
-  const closeMenu = () => {
-    body.classList.remove('nav-open');
-    if (burger) burger.setAttribute('aria-expanded', 'false');
+  /* -----------------------------
+     Header background on scroll (optional)
+  ----------------------------- */
+  const header = document.querySelector('.header');
+  if (header) {
+    window.addEventListener('scroll', () => {
+      header.style.background =
+        window.scrollY > 100
+          ? 'rgba(0,0,0,0.95)'
+          : 'rgba(0,0,0,0.8)';
+    });
+  }
+
+  /* -----------------------------
+     Intersection animations (optional)
+  ----------------------------- */
+  const animated = document.querySelectorAll(
+    '.step-item, .battle-card, .place-card, .why-card, .earnings-card'
+  );
+
+  if (animated.length) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    animated.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'all 0.6s ease';
+      observer.observe(el);
+    });
+  }
+
+  /* -----------------------------
+     Countdown (only if exists on page)
+     Deadline: 23 Dec 12:00
+  ----------------------------- */
+  const battleDate = new Date('2025-12-23T12:00:00');
+  const prev = {};
+
+  function updateCountdown() {
+    const elDays = document.getElementById('days');
+    const elHours = document.getElementById('hours');
+    const elMinutes = document.getElementById('minutes');
+    const elSeconds = document.getElementById('seconds');
+
+    // Если на странице нет счетчика — выходим (на rating/battle его может не быть)
+    if (!elDays || !elHours || !elMinutes || !elSeconds) return;
+
+    const now = new Date();
+    const diff = battleDate - now;
+
+    if (diff <= 0) {
+      [elDays, elHours, elMinutes, elSeconds].forEach(el => (el.textContent = '00'));
+      return;
+    }
+
+    const t = {
+      days: Math.floor(diff / 86400000),
+      hours: Math.floor(diff / 3600000) % 24,
+      minutes: Math.floor(diff / 60000) % 60,
+      seconds: Math.floor(diff / 1000) % 60
+    };
+
+    Object.entries(t).forEach(([id, val]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const v = String(val).padStart(2, '0');
+      if (prev[id] !== v) {
+        el.classList.add('flip-animation');
+        setTimeout(() => {
+          el.textContent = v;
+          el.classList.remove('flip-animation');
+        }, 300);
+        prev[id] = v;
+      }
+    });
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* -----------------------------
+     Stats animation (only if exists)
+  ----------------------------- */
+  const statsRoot = document.querySelector('.hero-stats');
+  const stats = document.querySelectorAll('.stat-value');
+
+  if (statsRoot && stats.length) {
+    let done = false;
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && !done) {
+        done = true;
+        stats.forEach(stat => {
+          const end = parseInt(stat.textContent.replace(/\D/g, ''));
+          const suffix = stat.textContent.replace(/\d/g, '');
+          let cur = 0;
+          const step = end / 50;
+
+          const timer = setInterval(() => {
+            cur += step;
+            if (cur >= end) {
+              stat.textContent = end + suffix;
+              clearInterval(timer);
+            } else {
+              stat.textContent = Math.floor(cur) + suffix;
+            }
+          }, 30);
+        });
+      }
+    }, { threshold: 0.5 }).observe(statsRoot);
+  }
+
+  /* -----------------------------
+     NAV: Active link + Burger
+     (works for menu with 3 page links)
+  ----------------------------- */
+
+  const body = document.body;
+  const burger = document.querySelector('.nav-burger');
+  const menu = document.querySelector('.nav-menu');
+
+  // --- Active link ---
+  const normalizePath = (p) => {
+    const name = (p.split('/').pop() || '').toLowerCase();
+    return name === '' ? 'index.html' : name;
   };
 
-  const openMenu = () => {
-    body.classList.add('nav-open');
-    if (burger) burger.setAttribute('aria-expanded', 'true');
-  };
+  const currentPage = normalizePath(location.pathname);
 
-  if (burger && navMenu) {
+  document.querySelectorAll('.nav-menu a').forEach(a => {
+    const hrefRaw = (a.getAttribute('href') || '').trim();
+    if (!hrefRaw) return;
+
+    // берем только файл (без параметров и #)
+    const hrefClean = hrefRaw.split('?')[0].split('#')[0];
+    const targetPage = normalizePath(hrefClean);
+
+    if (targetPage === currentPage) a.classList.add('active');
+    else a.classList.remove('active');
+  });
+
+  // --- Burger open/close ---
+  const openMenu = () => body.classList.add('nav-open');
+  const closeMenu = () => body.classList.remove('nav-open');
+
+  if (burger && menu) {
     burger.addEventListener('click', () => {
-      body.classList.contains('nav-open') ? closeMenu() : openMenu();
+      body.classList.toggle('nav-open');
     });
 
-    navMenu.addEventListener('click', (e) => {
-      const target = e.target;
-      if (target && target.closest && target.closest('a')) closeMenu();
+    // закрывать по клику на пункт меню
+    menu.addEventListener('click', e => {
+      if (e.target.closest('a')) closeMenu();
     });
 
-    document.addEventListener('keydown', (e) => {
+    // закрывать по Esc
+    document.addEventListener('keydown', e => {
       if (e.key === 'Escape') closeMenu();
     });
 
-    document.addEventListener('click', (e) => {
+    // закрывать по клику вне меню
+    document.addEventListener('click', e => {
       if (!body.classList.contains('nav-open')) return;
-      const t = e.target;
-      if (!navMenu.contains(t) && !burger.contains(t)) closeMenu();
+      if (!menu.contains(e.target) && !burger.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // закрывать если ушли в десктоп
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) closeMenu();
     });
   }
+
 });
