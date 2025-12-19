@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Countdown timer for the first battle
-    const battleDate = new Date('2025-12-11T11:00:00');
+    const battleDate = new Date('2025-12-23T11:00:00');
 
     let previousValues = {
         days: null,
